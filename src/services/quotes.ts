@@ -24,4 +24,8 @@ export class QuotesService {
         });
         return idx==-1? false : true;
     }
+
+    removeAllQuotesFromFavorites () {
+        this.favoriteQuotes = [];
+    }
 }

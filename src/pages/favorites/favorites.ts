@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { QuotesService } from '../../services/quotes';
 import { Quote } from '../../data/quote.interface';
-import { ModalController, MenuController, AlertController, ToastController } from 'ionic-angular';
+import { ModalController, PopoverController, MenuController, AlertController, ToastController } from 'ionic-angular';
 import { QuotePage } from '../quote/quote';
 import { SettingsService } from '../../services/settings';
+import { PopoverPage } from '../popover/popover';
 
 @Component({
   selector: 'page-favorites',
@@ -18,7 +19,8 @@ export class FavoritesPage {
     private settingsSvc: SettingsService,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private menuCtrl: MenuController) {
+    private menuCtrl: MenuController,
+    private popoverCtrl: PopoverController) {
       this.menuCtrl.enable(false, 'menuLogin');
       this.menuCtrl.enable(true, 'menuFav');
     }
@@ -35,7 +37,7 @@ export class FavoritesPage {
         this.quoteService.removeQuoteFromFavorites(quote);
         this.quotes = this.quoteService.getFavoriteQuotes();
       }
-    })
+    });
   }
 
   unfavoriteQuote(quote:Quote) {
@@ -98,5 +100,12 @@ export class FavoritesPage {
       ]
     })
     alert.present();
+  }
+
+  showPopover (e) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: e
+    });
   }
 }
